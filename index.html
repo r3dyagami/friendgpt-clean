@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FriendGPT</title>
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="enhanced-chat.js"></script>
+    <script src="simple-chat.js"></script>
     <style>
         * {
             margin: 0;
@@ -2014,10 +2014,10 @@
     </div>
 
     <script>
-        // Initialize Enhanced Chat System
+        // Initialize Simple Chat System
         let characterChat;
-        if (typeof CharacterChat !== 'undefined') {
-            characterChat = new CharacterChat();
+        if (typeof SimpleCharacterChat !== 'undefined') {
+            characterChat = new SimpleCharacterChat();
             window.characterChat = characterChat;
         }
 
@@ -2612,7 +2612,7 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
             return greetings[personality] || greetings.friendly;
         }
 
-        async function sendMessage() {
+        function sendMessage() {
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value.trim();
             
@@ -2628,24 +2628,28 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
             // Deduct energy credit
             credits--;
             document.getElementById('creditsCount').textContent = credits;
-            // Update chat credits display if it exists
-            const chatCreditsElement = document.getElementById('chatCreditsCount');
-            if (chatCreditsElement) {
-                chatCreditsElement.textContent = credits;
-            }
             
             // Add user message
             addMessage(message, 'user');
             messageInput.value = '';
             
-            // Show typing and get enhanced response
+            // Show typing indicator
             showTypingIndicator();
             
-            // Use enhanced character chat system
+            // Get character response
             const character = characters[currentCharacter];
-            const response = window.characterChat ? 
-                window.characterChat.generateResponse(message, character, character.conversationHistory || []) :
-                generateSmartFallback(message, character);
+            let response;
+            
+            try {
+                if (window.characterChat) {
+                    response = window.characterChat.generateResponse(message, character.name, character.conversationHistory || []);
+                } else {
+                    response = generateSmartFallback(message, character);
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                response = "I'm having trouble responding right now, but I'm here with you! Try saying that again?";
+            }
             
             // Add to conversation history
             if (!character.conversationHistory) {
@@ -2659,11 +2663,11 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
                 character.conversationHistory = character.conversationHistory.slice(-20);
             }
             
-            // Simulate typing delay for realism
+            // Simulate realistic typing delay
             setTimeout(() => {
                 hideTypingIndicator();
                 addMessage(response, 'character');
-            }, Math.random() * 1000 + 500); // 0.5-1.5 second delay
+            }, Math.random() * 800 + 400); // 0.4-1.2 second delay
         }
 
         async function callChatGPT(message) {
