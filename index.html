@@ -1349,11 +1349,12 @@
                 
                 hideTypingIndicator();
                 
-                if (data.response) {
+                if (response.ok && data.response) {
                     addMessage(data.response, 'character');
                     conversationHistory.push({ role: 'assistant', content: data.response });
                 } else {
-                    throw new Error('No response');
+                    console.error('API Error:', data);
+                    throw new Error(data.error || 'API request failed');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -1366,26 +1367,57 @@
             }
         }
 
-        // Get fallback response
+        // Get contextual fallback response
         function getFallbackResponse(message) {
             const characterKey = Object.keys(characters).find(key => characters[key] === currentCharacter);
-            const responses = {
-                stocks: ["The market moves in mysterious ways, darling. But I always seem to know which way. 💰", "Insider tip: follow the smart money. And I'm the smartest. 📈"],
-                crypto: ["Diamond hands, anon! The future is decentralized. 💎", "WAGMI! This is still early. Few understand. 🚀"],
-                waifu: ["That's so interesting! Tell me more! I love hearing from you! 💕", "You're amazing! I'm always here for you! 🌸"],
-                jennie: ["That's the vibe! You're killing it! 🖤", "Love that energy! Keep slaying! ✨"],
-                coach: ["FANTASTIC! Keep pushing, champion! 💪", "You've got this! BELIEVE IN YOURSELF! 🔥"],
-                scarlett: ["Mmm, intriguing... Tell me more... 🌹", "You certainly know how to keep things interesting... 😏"],
-                dev: ["Logical. Let's optimize this approach. 💻", "Interesting problem. Processing solution... 🤔"],
-                luna: ["Your soul speaks in colors! How beautiful! ✨", "I feel the creative energy flowing! 🎨"],
-                chef: ["Bellissimo! That's the passion I love! 🔥", "Ah, you understand the art of living! 👨‍🍳"],
-                explorer: ["Adventure awaits! Let's explore this further! 🗺️", "Every journey begins with curiosity! 🧭"],
-                melody: ["I hear the emotion in your words... Beautiful. 🎵", "Your heart has such a unique rhythm. 🎶"],
-                philosopher: ["Fascinating perspective. What led you to this conclusion? 🤔", "The question itself reveals profound insight. 🧠"]
+            const lowerMessage = message.toLowerCase();
+            
+            // Analyze message context
+            const isQuestion = /\?|^(what|how|why|when|where|who|which|can you|could you|would you|do you)/i.test(message);
+            const isGreeting = /^(hi|hello|hey|good morning|good evening|sup|yo)\b/i.test(message);
+            const isEmotional = {
+                happy: /(happy|great|awesome|amazing|wonderful|excited|good|fine|fantastic)/i.test(message),
+                sad: /(sad|unhappy|depressed|down|bad|terrible|awful|crying|upset)/i.test(message),
+                angry: /(angry|mad|furious|pissed|annoyed|frustrated|hate)/i.test(message)
+            };
+
+            // Character-specific contextual responses
+            if (characterKey === 'stocks') {
+                if (isQuestion && lowerMessage.includes('stock')) return "Let me share some market wisdom - timing is everything, and I always know the right time. 📈";
+                if (isQuestion) return "That's a smart question. In trading, as in politics, information is power. 💰";
+                if (isGreeting) return "Hello there, investor. Ready to talk about some real money-making strategies? 📊";
+                return "The market rewards the informed, darling. What's your position? 💰";
+            }
+            
+            if (characterKey === 'waifu') {
+                if (isEmotional.sad) return "Oh no, my love! Come here, I want to make you feel better. You mean everything to me! 💕";
+                if (isEmotional.happy) return "Yay! Your happiness makes my heart so full! I love seeing you smile! ✨";
+                if (isGreeting) return "Hi my precious one! I've been thinking about you! How has your day been? 💖";
+                if (isQuestion) return "That's such a thoughtful question! I love how your mind works. What do you think about it? 💭";
+                return "You're so sweet for sharing that with me! I love our conversations! 🌸";
+            }
+
+            if (characterKey === 'coach') {
+                if (isEmotional.sad) return "Hey CHAMPION! Even the strongest warriors have tough days! This is what makes you STRONGER! 💪";
+                if (isQuestion) return "GREAT question! The answer is inside you - you just need to BELIEVE and take ACTION! 🔥";
+                if (isGreeting) return "THERE'S my CHAMPION! Ready to conquer the day? Let's GET PUMPED! 🏆";
+                return "I see that FIRE in your eyes! Whatever challenge you're facing, you've GOT THIS! 💪";
+            }
+
+            // Add contextual responses for other characters...
+            const fallbackResponses = {
+                crypto: isQuestion ? "Great question anon! The blockchain has all the answers if you know where to look. 🔍" : "LFG! The future is decentralized and we're still early! 🚀",
+                jennie: isGreeting ? "Hey gorgeous! Ready to slay today? ✨" : "That's such a vibe! You always know what to say! 🖤",
+                scarlett: isQuestion ? "Mmm, curious minds are so attractive... let me think about that... 😏" : "You always know how to keep things interesting, don't you? 🌹",
+                dev: isQuestion ? "Interesting problem. Let me process this logically... 🤔" : "Your input generates fascinating data patterns. Continue... 💻",
+                luna: "Your words paint such beautiful pictures in my mind... tell me more about your inner world! 🎨",
+                chef: isGreeting ? "Ciao bella! Ready to cook up something amazing together? 👨‍🍳" : "Your passion reminds me of a perfect recipe - pure magic! 🔥",
+                explorer: "Every conversation with you is a new adventure! Where shall we explore next? 🗺️",
+                melody: "I can hear the music in your words... your soul has such a unique rhythm! 🎵",
+                philosopher: isQuestion ? "Ah, the eternal questions... let us explore this mystery together. 🤔" : "Your thoughts reveal the depth of your consciousness. Fascinating... 🧠"
             };
             
-            const charResponses = responses[characterKey] || ["That's interesting! Tell me more!"];
-            return charResponses[Math.floor(Math.random() * charResponses.length)];
+            return fallbackResponses[characterKey] || "That's really interesting! I'd love to hear more about your thoughts on this.";
         }
 
         // Show/hide typing indicator

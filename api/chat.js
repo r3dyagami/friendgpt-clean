@@ -15,11 +15,18 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { messages, model = 'gpt-3.5-turbo', max_tokens = 150, temperature = 0.8 } = req.body;
+        const { message, systemPrompt, conversationHistory = [], model = 'gpt-3.5-turbo', max_tokens = 200, temperature = 0.9 } = req.body;
 
-        if (!messages || !Array.isArray(messages)) {
-            return res.status(400).json({ error: 'Messages array is required' });
+        if (!message || !systemPrompt) {
+            return res.status(400).json({ error: 'Message and systemPrompt are required' });
         }
+
+        // Build messages array for OpenAI
+        const messages = [
+            { role: 'system', content: systemPrompt },
+            ...conversationHistory.slice(-8), // Keep last 8 messages for context
+            { role: 'user', content: message }
+        ];
 
         // Get API key from environment variables
         const apiKey = process.env.OPENAI_API_KEY;
@@ -55,7 +62,7 @@ export default async function handler(req, res) {
         
         // Return the AI response
         res.status(200).json({
-            message: data.choices[0].message.content,
+            response: data.choices[0].message.content,
             usage: data.usage
         });
 
