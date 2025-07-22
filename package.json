@@ -4,12 +4,9 @@
   "description": "FriendGPT - AI Character Chat Application",
   "main": "index.html",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'No build step needed for static site'"
+    "dev": "vercel dev"
   },
   "keywords": ["ai", "chat", "characters", "openai"],
   "author": "",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "license": "MIT"
 }
