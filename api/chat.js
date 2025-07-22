@@ -30,9 +30,24 @@ export default async function handler(req, res) {
 
         // Get API key from environment variables
         const apiKey = process.env.OPENAI_API_KEY;
-        if (!apiKey) {
-            return res.status(500).json({ error: 'OpenAI API key not configured' });
+        console.log('API Key check:', apiKey ? 'Present' : 'Missing');
+        
+        if (!apiKey || apiKey === 'your_openai_api_key_here') {
+            console.error('OpenAI API key not configured properly');
+            return res.status(500).json({ 
+                error: 'OpenAI API key not configured. Please add your OpenAI API key to environment variables.',
+                hint: 'Set OPENAI_API_KEY in Vercel dashboard or .env file'
+            });
         }
+
+        console.log('Sending to OpenAI:', {
+            model,
+            messageCount: messages.length,
+            systemPrompt: messages[0]?.content?.substring(0, 100) + '...',
+            userMessage: message,
+            max_tokens,
+            temperature
+        });
 
         // Call OpenAI API
         const response = await fetch('https://api.openai.com/v1/chat/completions', {

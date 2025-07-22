@@ -1,29 +1,54 @@
 # FriendGPT - AI Character Chat
 
-A modern AI character chat interface with multiple personalities powered by OpenAI's GPT.
+A modern AI character chat interface with multiple personalities powered by OpenAI's ChatGPT API.
 
 ## Features
-- 🤖 Multiple AI personalities (Waifu, Coach Arnie, Jennie, etc.)
-- 💬 Context-aware conversations with memory
-- 🎨 Beautiful character avatars and interface
-- 🌓 Dark/Light mode support
-- 📱 Mobile-responsive design
-- ⚡ Fast responses with intelligent fallbacks
+- 🤖 **12 AI Characters** with unique personalities (Waifu, Coach Arnie, Jennie, Crypto Expert, etc.)
+- 🧠 **Real ChatGPT Integration** - Contextual, intelligent responses
+- 🎨 **Character Creator** - Design custom characters with 6 personality types
+- 🎁 **Gifting System** - Send virtual gifts to characters
+- ⚡ **Energy System** - Gamified chat experience
+- 🌊 **Infinite Scroll** - Horizontally scrolling character rows
+- 📱 **Mobile-Responsive** - Perfect on all devices
 
-## Setup
+## 🚀 Quick Setup
 
-### 1. Deploy to Vercel
+### Option 1: Deploy to Vercel (Recommended)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/r3dyagami/friendgpt-clean)
 
-### 2. Add Environment Variables
-In your Vercel dashboard:
-1. Go to Project Settings → Environment Variables
-2. Add: `OPENAI_API_KEY` = your OpenAI API key
+1. Click the button above
+2. Connect your GitHub account
+3. Deploy the project
+4. **IMPORTANT**: Add your OpenAI API key in Vercel dashboard:
+   - Go to Project Settings → Environment Variables
+   - Add: `OPENAI_API_KEY` = `sk-your-actual-api-key-here`
 
-### 3. Get OpenAI API Key
+### Option 2: Local Development
+```bash
+git clone https://github.com/r3dyagami/friendgpt-clean.git
+cd friendgpt-clean
+
+# Create .env file
+cp .env.example .env
+# Edit .env and add your OpenAI API key
+
+# Install Vercel CLI and run locally
+npm i -g vercel
+vercel dev
+```
+
+## 🔑 Getting Your OpenAI API Key
+
 1. Go to https://platform.openai.com/api-keys
-2. Create a new secret key
-3. Add it to your Vercel environment variables
+2. Create a new secret key (starts with `sk-...`)
+3. **Add $5+ to your OpenAI account** (required for API access)
+4. Add the key to Vercel environment variables
+
+## ⚠️ Important Notes
+
+- **You MUST add your OpenAI API key** or the app will only use static fallback responses
+- **You need credits in your OpenAI account** for the API to work
+- Without the API key, characters will show "⚠️ ChatGPT API not available" message
 
 ## Local Development
 ```bash
