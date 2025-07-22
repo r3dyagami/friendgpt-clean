@@ -120,8 +120,9 @@
             gap: 12px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding-bottom: 10px;
+            padding: 0 4px 10px 4px;
             -webkit-overflow-scrolling: touch;
+            margin: 0 -4px;
         }
         
         .character-grid::-webkit-scrollbar {
@@ -149,10 +150,12 @@
             padding: 12px;
             cursor: pointer;
             transition: all 0.3s;
-            width: 180px;
+            width: 170px;
+            min-height: 240px;
             flex: 0 0 auto;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .character-card:hover {
@@ -162,46 +165,61 @@
 
         .character-avatar {
             width: 100%;
-            height: 140px;
+            height: 130px;
             border-radius: 8px;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             margin-bottom: 8px;
             flex-shrink: 0;
+            background-color: #222;
         }
 
         .character-name {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .character-creator {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .character-interactions {
-            font-size: 11px;
+            font-size: 10px;
             color: #00ff88;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .character-description {
-            font-size: 11px;
+            font-size: 10px;
             color: #999;
             line-height: 1.3;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            flex: 1;
+            margin-top: auto;
         }
         
         .character-info {
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
         }
 
         .plus-card {
@@ -215,7 +233,9 @@
             justify-content: center;
             background: rgba(0, 255, 136, 0.1);
             color: #00ff88;
-            font-size: 48px;
+            font-size: 40px;
+            height: 130px;
+            border-radius: 8px;
         }
 
         /* Chat View */
@@ -673,6 +693,49 @@
 
         .cancel-btn:hover {
             background: #444;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .character-card {
+                width: 150px;
+                min-height: 220px;
+            }
+            
+            .character-avatar {
+                height: 110px;
+            }
+            
+            .plus-avatar {
+                height: 110px;
+                font-size: 36px;
+            }
+            
+            .character-name {
+                font-size: 12px;
+            }
+            
+            .character-creator,
+            .character-interactions,
+            .character-description {
+                font-size: 9px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .character-card {
+                width: 130px;
+                min-height: 200px;
+            }
+            
+            .character-avatar {
+                height: 95px;
+            }
+            
+            .plus-avatar {
+                height: 95px;
+                font-size: 32px;
+            }
         }
     </style>
 </head>
