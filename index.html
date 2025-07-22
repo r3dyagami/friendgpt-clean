@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FriendGPT</title>
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="config.js"></script>
-    <script src="config.local.js"></script>
+    <script src="enhanced-chat.js"></script>
     <style>
         * {
             margin: 0;
@@ -2015,6 +2014,13 @@
     </div>
 
     <script>
+        // Initialize Enhanced Chat System
+        let characterChat;
+        if (typeof CharacterChat !== 'undefined') {
+            characterChat = new CharacterChat();
+            window.characterChat = characterChat;
+        }
+
         // Character database with system prompts
         const characters = {
             crypto: {
@@ -2632,19 +2638,32 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
             addMessage(message, 'user');
             messageInput.value = '';
             
-            // Show typing and get AI response
+            // Show typing and get enhanced response
             showTypingIndicator();
             
-            try {
-                const response = await callChatGPT(message);
+            // Use enhanced character chat system
+            const character = characters[currentCharacter];
+            const response = window.characterChat ? 
+                window.characterChat.generateResponse(message, character, character.conversationHistory || []) :
+                generateSmartFallback(message, character);
+            
+            // Add to conversation history
+            if (!character.conversationHistory) {
+                character.conversationHistory = [];
+            }
+            character.conversationHistory.push({ role: "user", content: message });
+            character.conversationHistory.push({ role: "assistant", content: response });
+            
+            // Keep only last 10 exchanges
+            if (character.conversationHistory.length > 20) {
+                character.conversationHistory = character.conversationHistory.slice(-20);
+            }
+            
+            // Simulate typing delay for realism
+            setTimeout(() => {
                 hideTypingIndicator();
                 addMessage(response, 'character');
-            } catch (error) {
-                hideTypingIndicator();
-                // Use intelligent fallback instead of generic error
-                const fallbackResponse = generateSmartFallback(message, characters[currentCharacter]);
-                addMessage(fallbackResponse, 'character');
-            }
+            }, Math.random() * 1000 + 500); // 0.5-1.5 second delay
         }
 
         async function callChatGPT(message) {
