@@ -143,8 +143,10 @@
             padding: 12px;
             cursor: pointer;
             transition: all 0.3s;
-            min-width: 160px;
+            width: 180px;
             flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .character-card:hover {
@@ -154,11 +156,12 @@
 
         .character-avatar {
             width: 100%;
-            height: 160px;
+            height: 140px;
             border-radius: 8px;
             background-size: cover;
             background-position: center;
             margin-bottom: 8px;
+            flex-shrink: 0;
         }
 
         .character-name {
@@ -182,6 +185,17 @@
         .character-description {
             font-size: 11px;
             color: #999;
+            line-height: 1.3;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .character-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .plus-card {
@@ -523,6 +537,137 @@
             cursor: pointer;
             width: 100%;
         }
+
+        /* Character Creator Modal */
+        .character-creator-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .creator-content {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .creator-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .creator-header h2 {
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+
+        .creator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #00ff88;
+        }
+
+        .personality-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .personality-btn {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .personality-btn:hover,
+        .personality-btn.active {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .creator-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .create-btn {
+            flex: 1;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .create-btn:hover {
+            background: #00dd77;
+        }
+
+        .cancel-btn {
+            flex: 1;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cancel-btn:hover {
+            background: #444;
+        }
     </style>
 </head>
 <body>
@@ -794,6 +939,45 @@
                 <button class="close-btn" id="closeGiftBtn">Close</button>
             </div>
         </div>
+
+        <!-- Character Creator Modal -->
+        <div class="character-creator-modal" id="characterCreatorModal">
+            <div class="creator-content">
+                <div class="creator-header">
+                    <h2>Create Your Character</h2>
+                    <p>Design a unique AI companion</p>
+                </div>
+                <div class="creator-form">
+                    <div class="form-group">
+                        <label>Character Name</label>
+                        <input type="text" id="characterName" placeholder="Enter character name" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label>Creator Tag</label>
+                        <input type="text" id="characterCreator" placeholder="by @username" maxlength="20" value="by @you">
+                    </div>
+                    <div class="form-group">
+                        <label>Character Description</label>
+                        <textarea id="characterDescription" placeholder="Describe your character..." maxlength="100" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Personality Type</label>
+                        <div class="personality-grid">
+                            <button class="personality-btn" data-personality="friendly">🤗 Friendly</button>
+                            <button class="personality-btn" data-personality="mysterious">🔮 Mysterious</button>
+                            <button class="personality-btn" data-personality="romantic">💕 Romantic</button>
+                            <button class="personality-btn" data-personality="wise">🧠 Wise</button>
+                            <button class="personality-btn" data-personality="playful">😄 Playful</button>
+                            <button class="personality-btn" data-personality="professional">💼 Professional</button>
+                        </div>
+                    </div>
+                    <div class="creator-actions">
+                        <button class="create-btn" id="createCharacterBtn">Create Character</button>
+                        <button class="cancel-btn" id="cancelCreateBtn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1019,12 +1203,28 @@
                 });
             });
 
+            // Character creator
+            document.querySelector('.plus-card').addEventListener('click', openCharacterCreator);
+            document.getElementById('createCharacterBtn').addEventListener('click', createCharacter);
+            document.getElementById('cancelCreateBtn').addEventListener('click', closeCharacterCreator);
+            
+            // Personality buttons
+            document.querySelectorAll('.personality-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.personality-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
             // Close modals on background click
             document.getElementById('purchaseModal').addEventListener('click', function(e) {
                 if (e.target === this) closePurchaseModal();
             });
             document.getElementById('giftModal').addEventListener('click', function(e) {
                 if (e.target === this) closeGiftModal();
+            });
+            document.getElementById('characterCreatorModal').addEventListener('click', function(e) {
+                if (e.target === this) closeCharacterCreator();
             });
         }
 
@@ -1253,6 +1453,123 @@
 
         function closeGiftModal() {
             document.getElementById('giftModal').style.display = 'none';
+        }
+
+        // Character creator functions
+        function openCharacterCreator() {
+            document.getElementById('characterCreatorModal').style.display = 'flex';
+            // Reset form
+            document.getElementById('characterName').value = '';
+            document.getElementById('characterCreator').value = 'by @you';
+            document.getElementById('characterDescription').value = '';
+            document.querySelectorAll('.personality-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function closeCharacterCreator() {
+            document.getElementById('characterCreatorModal').style.display = 'none';
+        }
+
+        function createCharacter() {
+            const name = document.getElementById('characterName').value.trim();
+            const creator = document.getElementById('characterCreator').value.trim();
+            const description = document.getElementById('characterDescription').value.trim();
+            const selectedPersonality = document.querySelector('.personality-btn.active');
+
+            // Validation
+            if (!name) {
+                alert('Please enter a character name');
+                return;
+            }
+            if (!description) {
+                alert('Please enter a character description');
+                return;
+            }
+            if (!selectedPersonality) {
+                alert('Please select a personality type');
+                return;
+            }
+
+            const personality = selectedPersonality.dataset.personality;
+
+            // Generate character key
+            const characterKey = 'custom_' + Date.now();
+
+            // Create system prompt based on personality
+            const personalityPrompts = {
+                friendly: `You are ${name}, a friendly and warm character. You're approachable, kind, and always eager to help. You enjoy connecting with people and making them feel comfortable. ${description}`,
+                mysterious: `You are ${name}, a mysterious and enigmatic character. You speak in riddles sometimes and have an air of intrigue. You're fascinating and leave people wanting to know more. ${description}`,
+                romantic: `You are ${name}, a romantic and passionate character. You're affectionate, caring, and express emotions deeply. You enjoy intimate conversations and meaningful connections. ${description}`,
+                wise: `You are ${name}, a wise and thoughtful character. You offer guidance, share insights, and help people think through problems. You're philosophical and contemplative. ${description}`,
+                playful: `You are ${name}, a playful and fun-loving character. You're energetic, humorous, and enjoy making people laugh. You're spontaneous and bring joy to conversations. ${description}`,
+                professional: `You are ${name}, a professional and competent character. You're reliable, knowledgeable, and approach things with expertise. You're helpful and focused on getting things done. ${description}`
+            };
+
+            // Add character to database
+            characters[characterKey] = {
+                name: name,
+                creator: creator,
+                avatar: `data:image/svg+xml,${encodeURIComponent(generateAvatarSVG(name, personality))}`,
+                systemPrompt: personalityPrompts[personality],
+                isCustom: true
+            };
+
+            // Add character card to the "Your Characters" section
+            addCustomCharacterCard(characterKey, characters[characterKey]);
+
+            // Close modal
+            closeCharacterCreator();
+
+            // Show success message
+            alert(`${name} has been created successfully!`);
+        }
+
+        function generateAvatarSVG(name, personality) {
+            const colors = {
+                friendly: '#4CAF50',
+                mysterious: '#9C27B0',
+                romantic: '#E91E63',
+                wise: '#2196F3',
+                playful: '#FF9800',
+                professional: '#607D8B'
+            };
+
+            const color = colors[personality] || '#00ff88';
+            const initial = name.charAt(0).toUpperCase();
+
+            return `<svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <rect width="140" height="140" rx="8" fill="${color}"/>
+                <text x="70" y="85" font-family="Arial, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" fill="white">${initial}</text>
+            </svg>`;
+        }
+
+        function addCustomCharacterCard(key, character) {
+            const yourCharactersGrid = document.querySelector('.section:last-child .character-grid');
+            
+            // Create new character card
+            const card = document.createElement('div');
+            card.className = 'character-card';
+            card.dataset.character = key;
+            card.innerHTML = `
+                <div class="character-avatar" style="background-image: url('${character.avatar}');"></div>
+                <div class="character-info">
+                    <div class="character-name">${character.name}</div>
+                    <div class="character-creator">${character.creator}</div>
+                    <div class="character-interactions">0 interactions</div>
+                    <div class="character-description">${character.systemPrompt.split('.')[1] || 'Custom character'}</div>
+                </div>
+            `;
+            
+            // Add click handler
+            card.addEventListener('click', function() {
+                selectCharacter(key);
+            });
+            
+            // Insert before the plus card
+            const plusCard = yourCharactersGrid.querySelector('.plus-card');
+            yourCharactersGrid.insertBefore(card, plusCard);
+
+            // Re-setup infinite scroll for the updated grid
+            setupInfiniteScroll();
         }
     </script>
 </body>
