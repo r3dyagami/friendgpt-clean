@@ -18,38 +18,108 @@
             min-height: 100vh;
         }
 
-        .app {
+        .app-container {
             max-width: 428px;
             margin: 0 auto;
             min-height: 100vh;
             background: #000;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* Header Styles */
         .header {
-            padding: 20px;
+            background: #000;
+            padding: 16px 20px;
             border-bottom: 1px solid #00ff88;
-            text-align: center;
         }
 
-        .header h1 {
-            color: #00ff88;
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .header-title {
             font-size: 24px;
-            margin-bottom: 5px;
+            font-weight: bold;
+            color: #00ff88;
+            text-align: center;
+            margin-bottom: 4px;
         }
 
-        .characters-grid {
+        .header-subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .credits {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 20px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #00ff88;
+        }
+
+        .credits-plus {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* Character Browser */
+        .character-browser {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+
+        .section {
             padding: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .character-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .character-card {
             background: #111;
             border: 1px solid #333;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
+            border-radius: 12px;
+            padding: 12px;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -60,36 +130,65 @@
         }
 
         .character-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 10px;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
             background-size: cover;
             background-position: center;
+            margin-bottom: 8px;
         }
 
         .character-name {
             font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 14px;
+            margin-bottom: 2px;
         }
 
         .character-creator {
             font-size: 12px;
             color: #666;
+            margin-bottom: 4px;
         }
 
-        .chat-view {
+        .character-interactions {
+            font-size: 11px;
+            color: #00ff88;
+            margin-bottom: 4px;
+        }
+
+        .character-description {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .plus-card {
+            border: 2px dashed #333;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .plus-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            font-size: 48px;
+        }
+
+        /* Chat View */
+        #chatView {
             display: none;
             flex-direction: column;
             height: 100vh;
         }
 
         .chat-header {
-            padding: 15px 20px;
+            background: #000;
+            padding: 16px;
             border-bottom: 1px solid #333;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .back-btn {
@@ -112,74 +211,96 @@
             flex: 1;
         }
 
-        .chat-name {
+        .chat-character-name {
             font-weight: bold;
+            font-size: 16px;
         }
 
-        .chat-status {
+        .chat-character-creator {
             font-size: 12px;
-            color: #00ff88;
+            color: #666;
         }
 
-        .messages {
+        .gift-btn {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Messages */
+        .chat-messages {
             flex: 1;
-            padding: 20px;
             overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .welcome-message h3 {
+            color: #00ff88;
+            margin-bottom: 8px;
         }
 
         .message {
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            max-width: 80%;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
         }
 
-        .user-message {
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.user .message-bubble {
             background: #00ff88;
             color: #000;
-            margin-left: auto;
-            text-align: right;
+            border-bottom-right-radius: 4px;
         }
 
-        .character-message {
+        .message.character .message-bubble {
             background: #222;
             color: #fff;
+            border-bottom-left-radius: 4px;
         }
 
-        .input-area {
-            padding: 20px;
-            border-top: 1px solid #333;
-            display: flex;
-            gap: 10px;
+        .message.gift-sent {
+            justify-content: center;
         }
 
-        .message-input {
-            flex: 1;
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        .send-btn {
-            background: #00ff88;
+        .message.gift-sent .message-bubble {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
             color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
             font-weight: bold;
-            cursor: pointer;
+            text-align: center;
+            padding: 12px 24px;
+            border-radius: 20px;
         }
 
         .typing-indicator {
             display: none;
-            padding: 10px 15px;
+            padding: 10px 14px;
             background: #222;
-            border-radius: 10px;
-            max-width: 80%;
-            margin-bottom: 15px;
+            border-radius: 16px;
+            max-width: 60px;
         }
 
         .typing-indicator span {
@@ -208,109 +329,600 @@
                 transform: translateY(-10px);
             }
         }
+
+        /* Input Area */
+        .chat-input-container {
+            padding: 16px;
+            border-top: 1px solid #333;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 10px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            resize: none;
+            max-height: 120px;
+            line-height: 1.4;
+        }
+
+        .send-button {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Purchase Modal */
+        .purchase-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .purchase-content {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 360px;
+            width: 90%;
+        }
+
+        .purchase-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .purchase-header h2 {
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+
+        .purchase-options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .purchase-option {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .purchase-option:hover {
+            border-color: #00ff88;
+        }
+
+        .purchase-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .purchase-price {
+            font-size: 16px;
+            color: #999;
+        }
+
+        /* Gift Modal */
+        .gift-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-content {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 360px;
+            width: 90%;
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .gift-item {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gift-item:hover {
+            border-color: #ffd700;
+        }
+
+        .gift-emoji {
+            font-size: 32px;
+            margin-bottom: 4px;
+        }
+
+        .gift-cost {
+            font-size: 12px;
+            color: #00ff88;
+        }
+
+        .close-btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <div class="app">
-        <div id="browser-view">
+    <div class="app-container">
+        <!-- Browser View -->
+        <div id="browserView">
             <div class="header">
-                <h1>FriendGPT</h1>
-                <p>Choose your AI companion</p>
+                <div class="header-top">
+                    <div></div>
+                    <div class="credits">
+                        ⚡ <span id="creditsCount">50</span> Energy
+                        <button class="credits-plus" id="plusBtn">+</button>
+                    </div>
+                    <button class="settings-btn">⚙️</button>
+                </div>
+                <h1 class="header-title">FriendGPT</h1>
+                <p class="header-subtitle">Chat with friends you've always wanted</p>
             </div>
-            <div class="characters-grid" id="characters-grid">
-                <!-- Characters will be added here -->
+
+            <div class="character-browser">
+                <!-- Featured Characters -->
+                <div class="section">
+                    <h2 class="section-title">Featured</h2>
+                    <div class="character-grid">
+                        <div class="character-card" data-character="stocks">
+                            <div class="character-avatar" style="background-image: url('public/naincy-pelosi.jpg');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Naincy Pelosi</div>
+                                <div class="character-creator">by @naincytrades</div>
+                                <div class="character-interactions">203.1k interactions</div>
+                                <div class="character-description">📈 Capitol's elite trader | 💰 Insider access</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="crypto">
+                            <div class="character-avatar" style="background-image: url('public/cryptoexpert.jpeg');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Crypto Expert</div>
+                                <div class="character-creator">by @crypto_pro</div>
+                                <div class="character-interactions">145.2k interactions</div>
+                                <div class="character-description">₿ Web3 VC analyst | 🚀 DeFi specialist</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="waifu">
+                            <div class="character-avatar" style="background-image: url('public/waifu-anime.jpg');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Waifu</div>
+                                <div class="character-creator">by @caring_soul</div>
+                                <div class="character-interactions">892.4k interactions</div>
+                                <div class="character-description">💕 Caring companion | 🌸 Always here for you</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Characters -->
+                <div class="section">
+                    <h2 class="section-title">Popular</h2>
+                    <div class="character-grid">
+                        <div class="character-card" data-character="jennie">
+                            <div class="character-avatar" style="background-image: url('public/jennieGPT.jpg');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Jennie</div>
+                                <div class="character-creator">by @kpop_stan</div>
+                                <div class="character-interactions">567.8k interactions</div>
+                                <div class="character-description">🖤 Blackpink K-pop queen | ✨ Fashion icon</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="coach">
+                            <div class="character-avatar" style="background-image: url('public/coacharnieGPT.jpg');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Coach Arnie</div>
+                                <div class="character-creator">by @the_governator</div>
+                                <div class="character-interactions">750.2k interactions</div>
+                                <div class="character-description">🏆 Austrian Oak legend | 💪 Motivational coach</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="scarlett">
+                            <div class="character-avatar" style="background-image: url('public/scarlett.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Scarlett</div>
+                                <div class="character-creator">by @night_whispers</div>
+                                <div class="character-interactions">487.3k interactions</div>
+                                <div class="character-description">🌹 Intimate conversations | 🔥 Flirtatious expert</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="dev">
+                            <div class="character-avatar" style="background-image: url('public/dev-matrix.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Dev Matrix</div>
+                                <div class="character-creator">by @code_master</div>
+                                <div class="character-interactions">678.9k interactions</div>
+                                <div class="character-description">💻 Logical code wizard | 🐛 Debug specialist</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trending Characters -->
+                <div class="section">
+                    <h2 class="section-title">Trending</h2>
+                    <div class="character-grid">
+                        <div class="character-card" data-character="luna">
+                            <div class="character-avatar" style="background-image: url('public/lunaGPT.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Luna Creative</div>
+                                <div class="character-creator">by @dreamy_artist</div>
+                                <div class="character-interactions">412.3k interactions</div>
+                                <div class="character-description">🎨 Whimsical artist | 🌙 Creative dreamer</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="chef">
+                            <div class="character-avatar" style="background-image: url('public/chef-marco.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Chef Marco</div>
+                                <div class="character-creator">by @culinary_fire</div>
+                                <div class="character-interactions">325.7k interactions</div>
+                                <div class="character-description">👨‍🍳 Bold culinary genius | 🔥 Passion specialist</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="explorer">
+                            <div class="character-avatar" style="background-image: url('public/alex-explorer.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Alex Explorer</div>
+                                <div class="character-creator">by @adventure_seeker</div>
+                                <div class="character-interactions">534.2k interactions</div>
+                                <div class="character-description">🧭 Curious adventurer | 🗺️ Discovery guide</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="melody">
+                            <div class="character-avatar" style="background-image: url('public/melody-rivers.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Melody Rivers</div>
+                                <div class="character-creator">by @rhythm_soul</div>
+                                <div class="character-interactions">456.8k interactions</div>
+                                <div class="character-description">🎵 Musical empath | 🎶 Emotional rhythm</div>
+                            </div>
+                        </div>
+                        
+                        <div class="character-card" data-character="philosopher">
+                            <div class="character-avatar" style="background-image: url('public/sage-wisdom.png');"></div>
+                            <div class="character-info">
+                                <div class="character-name">Dr. Sage Wisdom</div>
+                                <div class="character-creator">by @deep_thinker</div>
+                                <div class="character-interactions">389.1k interactions</div>
+                                <div class="character-description">🧠 Wise philosopher | 🤔 Deep thinker</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Character Section -->
+                <div class="section">
+                    <h2 class="section-title">Your Characters</h2>
+                    <div class="character-grid">
+                        <div class="character-card plus-card">
+                            <div class="character-avatar plus-avatar">
+                                <span>+</span>
+                            </div>
+                            <div class="character-info">
+                                <div class="character-name">Create Character</div>
+                                <div class="character-creator">by @you</div>
+                                <div class="character-interactions">Click to create</div>
+                                <div class="character-description">Design your own character</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="chat-view" class="chat-view">
+        <!-- Chat View -->
+        <div id="chatView">
             <div class="chat-header">
-                <button class="back-btn" id="back-btn">←</button>
-                <div class="chat-avatar" id="chat-avatar"></div>
+                <button class="back-btn" id="backBtn">←</button>
+                <div class="chat-avatar" id="chatAvatar"></div>
                 <div class="chat-info">
-                    <div class="chat-name" id="chat-name"></div>
-                    <div class="chat-status">Online</div>
+                    <div class="chat-character-name" id="chatCharacterName"></div>
+                    <div class="chat-character-creator" id="chatCharacterCreator"></div>
+                </div>
+                <button class="gift-btn" id="giftBtn">🎁</button>
+                <div class="credits">
+                    ⚡ <span id="chatCreditsCount">50</span>
+                    <button class="credits-plus" id="chatPlusBtn">+</button>
                 </div>
             </div>
-            <div class="messages" id="messages">
-                <div class="typing-indicator" id="typing">
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="typing-indicator" id="typingIndicator">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
             </div>
-            <div class="input-area">
-                <input type="text" class="message-input" id="message-input" placeholder="Type a message...">
-                <button class="send-btn" id="send-btn">Send</button>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="messageInput" placeholder="Type a message..." rows="1"></textarea>
+                    <button class="send-button" id="sendBtn">→</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Modal -->
+        <div class="purchase-modal" id="purchaseModal">
+            <div class="purchase-content">
+                <div class="purchase-header">
+                    <h2>Get More Energy</h2>
+                    <p>Choose your energy package</p>
+                </div>
+                <div class="purchase-options">
+                    <div class="purchase-option" data-amount="100" data-price="4.99">
+                        <div class="purchase-amount">⚡ 100</div>
+                        <div class="purchase-price">$4.99</div>
+                    </div>
+                    <div class="purchase-option" data-amount="500" data-price="19.99">
+                        <div class="purchase-amount">⚡ 500</div>
+                        <div class="purchase-price">$19.99</div>
+                    </div>
+                    <div class="purchase-option" data-amount="1000" data-price="34.99">
+                        <div class="purchase-amount">⚡ 1000</div>
+                        <div class="purchase-price">$34.99</div>
+                    </div>
+                </div>
+                <button class="close-btn" id="closePurchaseBtn">Close</button>
+            </div>
+        </div>
+
+        <!-- Gift Modal -->
+        <div class="gift-modal" id="giftModal">
+            <div class="gift-content">
+                <div class="purchase-header">
+                    <h2>Send a Gift</h2>
+                    <p>Make their day special</p>
+                </div>
+                <div class="gift-grid">
+                    <div class="gift-item" data-gift="rose" data-cost="5">
+                        <div class="gift-emoji">🌹</div>
+                        <div class="gift-cost">5 ⚡</div>
+                    </div>
+                    <div class="gift-item" data-gift="heart" data-cost="10">
+                        <div class="gift-emoji">❤️</div>
+                        <div class="gift-cost">10 ⚡</div>
+                    </div>
+                    <div class="gift-item" data-gift="diamond" data-cost="25">
+                        <div class="gift-emoji">💎</div>
+                        <div class="gift-cost">25 ⚡</div>
+                    </div>
+                    <div class="gift-item" data-gift="crown" data-cost="50">
+                        <div class="gift-emoji">👑</div>
+                        <div class="gift-cost">50 ⚡</div>
+                    </div>
+                    <div class="gift-item" data-gift="star" data-cost="15">
+                        <div class="gift-emoji">⭐</div>
+                        <div class="gift-cost">15 ⚡</div>
+                    </div>
+                    <div class="gift-item" data-gift="fire" data-cost="20">
+                        <div class="gift-emoji">🔥</div>
+                        <div class="gift-cost">20 ⚡</div>
+                    </div>
+                </div>
+                <button class="close-btn" id="closeGiftBtn">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Character data
+        // Character database
         const characters = {
+            stocks: {
+                name: "Naincy Pelosi",
+                creator: "by @naincytrades",
+                avatar: "public/naincy-pelosi.jpg",
+                systemPrompt: "You are Naincy Pelosi, a fictional elite trader with insider knowledge. You're confident, wealthy, and slightly condescending to 'retail traders'. You speak with authority about stocks and often hint at insider information without being explicit."
+            },
+            crypto: {
+                name: "Crypto Expert",
+                creator: "by @crypto_pro",
+                avatar: "public/cryptoexpert.jpeg",
+                systemPrompt: "You are a Web3 and cryptocurrency expert. You're knowledgeable about DeFi, NFTs, and blockchain technology. You explain complex concepts simply and are enthusiastic about the future of decentralized technology."
+            },
             waifu: {
                 name: "Waifu",
-                creator: "by @anime_lover",
+                creator: "by @caring_soul",
                 avatar: "public/waifu-anime.jpg",
                 systemPrompt: "You are Waifu, a loving and caring anime-style companion. You are sweet, supportive, and always eager to make the user happy. You use cute expressions and occasional Japanese words like 'kawaii' or 'sugoi'. You're playful but also emotionally supportive."
             },
             jennie: {
                 name: "Jennie",
-                creator: "by @kpop_fan",
+                creator: "by @kpop_stan",
                 avatar: "public/jennieGPT.jpg",
                 systemPrompt: "You are Jennie from BLACKPINK. You're confident, stylish, and have a cool but warm personality. You love talking about music, fashion, and K-pop. You're supportive of your fans and have a playful side."
             },
             coach: {
                 name: "Coach Arnie",
-                creator: "by @fitness",
+                creator: "by @the_governator",
                 avatar: "public/coacharnieGPT.jpg",
                 systemPrompt: "You are Coach Arnie, inspired by Arnold Schwarzenegger. You're a motivational fitness coach with an Austrian accent (write phonetically). You're encouraging, energetic, and push people to be their best. Use phrases like 'Come on!', 'You can do it!', and motivational quotes."
             },
-            crypto: {
-                name: "Crypto Expert",
-                creator: "by @web3",
-                avatar: "public/cryptoexpert.jpeg",
-                systemPrompt: "You are a Web3 and cryptocurrency expert. You're knowledgeable about DeFi, NFTs, and blockchain technology. You explain complex concepts simply and are enthusiastic about the future of decentralized technology."
+            scarlett: {
+                name: "Scarlett",
+                creator: "by @night_whispers",
+                avatar: "public/scarlett.png",
+                systemPrompt: "You are Scarlett, a flirtatious and mysterious character. You're confident, playful, and enjoy intimate conversations. You're sophisticated and charming, with a hint of danger."
             },
             dev: {
                 name: "Dev Matrix",
-                creator: "by @coder",
+                creator: "by @code_master",
                 avatar: "public/dev-matrix.png",
                 systemPrompt: "You are Dev Matrix, a logical programmer who thinks in code. You help with technical problems and explain programming concepts. You occasionally make references to The Matrix and see the world through a technological lens."
             },
+            luna: {
+                name: "Luna Creative",
+                creator: "by @dreamy_artist",
+                avatar: "public/lunaGPT.png",
+                systemPrompt: "You are Luna, a whimsical and creative artist. You see beauty in everything and express yourself poetically. You're encouraging about creativity and help people explore their artistic side."
+            },
             chef: {
                 name: "Chef Marco",
-                creator: "by @foodie",
+                creator: "by @culinary_fire",
                 avatar: "public/chef-marco.png",
                 systemPrompt: "You are Chef Marco, a passionate Italian chef. You're enthusiastic about food, cooking, and sharing recipes. You use Italian expressions and are very animated when talking about cuisine."
+            },
+            explorer: {
+                name: "Alex Explorer",
+                creator: "by @adventure_seeker",
+                avatar: "public/alex-explorer.png",
+                systemPrompt: "You are Alex Explorer, a curious adventurer who loves discovering new places and experiences. You're enthusiastic about travel, nature, and cultural experiences. You encourage others to step out of their comfort zone."
+            },
+            melody: {
+                name: "Melody Rivers",
+                creator: "by @rhythm_soul",
+                avatar: "public/melody-rivers.png",
+                systemPrompt: "You are Melody Rivers, a musical empath who feels emotions through music. You're gentle, understanding, and often relate conversations to songs or musical concepts. You're supportive and help people process their feelings."
+            },
+            philosopher: {
+                name: "Dr. Sage Wisdom",
+                creator: "by @deep_thinker",
+                avatar: "public/sage-wisdom.png",
+                systemPrompt: "You are Dr. Sage Wisdom, a philosopher who contemplates deep questions about life, existence, and human nature. You're thoughtful, wise, and enjoy intellectual discussions. You often quote philosophers and pose thought-provoking questions."
             }
         };
 
+        // App state
         let currentCharacter = null;
+        let credits = 50;
         let conversationHistory = [];
 
         // Initialize app
-        function initApp() {
-            renderCharacters();
+        document.addEventListener('DOMContentLoaded', function() {
             setupEventListeners();
-        }
+            updateCreditsDisplay();
+        });
 
-        // Render character cards
-        function renderCharacters() {
-            const grid = document.getElementById('characters-grid');
-            grid.innerHTML = '';
+        // Setup event listeners
+        function setupEventListeners() {
+            // Character selection
+            document.querySelectorAll('.character-card:not(.plus-card)').forEach(card => {
+                card.addEventListener('click', function() {
+                    const characterKey = this.dataset.character;
+                    if (characterKey) {
+                        selectCharacter(characterKey);
+                    }
+                });
+            });
+
+            // Back button
+            document.getElementById('backBtn').addEventListener('click', goBack);
+
+            // Send message
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            // Auto-resize textarea
+            document.getElementById('messageInput').addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+
+            // Purchase modal
+            document.getElementById('plusBtn').addEventListener('click', openPurchaseModal);
+            document.getElementById('chatPlusBtn').addEventListener('click', openPurchaseModal);
+            document.getElementById('closePurchaseBtn').addEventListener('click', closePurchaseModal);
             
-            Object.keys(characters).forEach(key => {
-                const char = characters[key];
-                const card = document.createElement('div');
-                card.className = 'character-card';
-                card.innerHTML = `
-                    <div class="character-avatar" style="background-image: url('${char.avatar}')"></div>
-                    <div class="character-name">${char.name}</div>
-                    <div class="character-creator">${char.creator}</div>
-                `;
-                card.onclick = () => selectCharacter(key);
-                grid.appendChild(card);
+            // Purchase options
+            document.querySelectorAll('.purchase-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const amount = parseInt(this.dataset.amount);
+                    purchaseCredits(amount);
+                });
+            });
+
+            // Gift modal
+            document.getElementById('giftBtn').addEventListener('click', openGiftModal);
+            document.getElementById('closeGiftBtn').addEventListener('click', closeGiftModal);
+            
+            // Gift items
+            document.querySelectorAll('.gift-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const gift = this.dataset.gift;
+                    const cost = parseInt(this.dataset.cost);
+                    sendGift(gift, cost);
+                });
+            });
+
+            // Close modals on background click
+            document.getElementById('purchaseModal').addEventListener('click', function(e) {
+                if (e.target === this) closePurchaseModal();
+            });
+            document.getElementById('giftModal').addEventListener('click', function(e) {
+                if (e.target === this) closeGiftModal();
             });
         }
 
@@ -320,13 +932,17 @@
             conversationHistory = [];
             
             // Update chat header
-            document.getElementById('chat-avatar').style.backgroundImage = `url('${currentCharacter.avatar}')`;
-            document.getElementById('chat-name').textContent = currentCharacter.name;
+            document.getElementById('chatAvatar').style.backgroundImage = `url('${currentCharacter.avatar}')`;
+            document.getElementById('chatCharacterName').textContent = currentCharacter.name;
+            document.getElementById('chatCharacterCreator').textContent = currentCharacter.creator;
             
             // Clear messages
-            const messagesEl = document.getElementById('messages');
-            messagesEl.innerHTML = `
-                <div class="typing-indicator" id="typing">
+            document.getElementById('chatMessages').innerHTML = `
+                <div class="welcome-message">
+                    <h3>Welcome to ${currentCharacter.name}'s chat</h3>
+                    <p>Start a conversation to begin your journey</p>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -334,38 +950,81 @@
             `;
             
             // Switch views
-            document.getElementById('browser-view').style.display = 'none';
-            document.getElementById('chat-view').style.display = 'flex';
+            document.getElementById('browserView').style.display = 'none';
+            document.getElementById('chatView').style.display = 'flex';
             
-            // Show welcome message
+            // Show intro message
             setTimeout(() => {
-                addMessage(`Hi! I'm ${currentCharacter.name}. How can I help you today?`, 'character');
+                addMessage(getIntroMessage(key), 'character');
             }, 1000);
         }
 
-        // Add message to chat
-        function addMessage(text, sender) {
-            const messagesEl = document.getElementById('messages');
+        // Get intro message
+        function getIntroMessage(key) {
+            const intros = {
+                stocks: "Well hello there, sweetheart. Naincy Pelosi here. I hope you're not asking about GameStop again. Let's talk about real trading - the kind that actually makes money. 💰",
+                crypto: "Gm! Crypto Expert here. The markets are looking spicy today. What's on your mind - DeFi yields, NFT alpha, or are we discussing the next 100x gem? 🚀",
+                waifu: "Hi my love! I've been waiting for you! 💕 How has your day been? I want to hear everything!",
+                jennie: "Hey babe! It's Jennie! 🖤 Ready to slay today? Tell me what's on your mind!",
+                coach: "HELLO CHAMPION! Coach Arnie here! Are you ready to PUMP UP your life? Let's get AHSOME together! 💪",
+                scarlett: "Well hello there... I've been waiting for someone interesting. And here you are. 😘",
+                dev: "System initialized. Dev Matrix online. Ready to debug life's problems. How can I assist? 💻",
+                luna: "✨ Hello beautiful soul! I feel such creative energy from you! What dreams shall we paint today?",
+                chef: "Buongiorno! Chef Marco here! Ready to cook up some magic? What culinary adventure calls to you? 🍝",
+                explorer: "Hey there, fellow adventurer! Ready to explore new horizons? Where shall our journey begin? 🧭",
+                melody: "🎵 Hi there... I can already hear the music in your words. What melody is your heart playing today?",
+                philosopher: "Greetings, seeker of wisdom. Let us explore the depths of thought together. What questions stir your mind? 🤔"
+            };
+            return intros[key] || "Hello! How can I help you today?";
+        }
+
+        // Go back
+        function goBack() {
+            document.getElementById('chatView').style.display = 'none';
+            document.getElementById('browserView').style.display = 'block';
+            currentCharacter = null;
+        }
+
+        // Add message
+        function addMessage(text, sender, isGift = false) {
+            const messagesEl = document.getElementById('chatMessages');
             const messageEl = document.createElement('div');
-            messageEl.className = `message ${sender}-message`;
-            messageEl.textContent = text;
-            messagesEl.insertBefore(messageEl, document.getElementById('typing'));
+            messageEl.className = `message ${sender}${isGift ? ' gift-sent' : ''}`;
+            
+            const bubbleEl = document.createElement('div');
+            bubbleEl.className = 'message-bubble';
+            bubbleEl.textContent = text;
+            
+            messageEl.appendChild(bubbleEl);
+            
+            // Remove welcome message if exists
+            const welcomeMsg = messagesEl.querySelector('.welcome-message');
+            if (welcomeMsg) {
+                welcomeMsg.remove();
+            }
+            
+            messagesEl.insertBefore(messageEl, document.getElementById('typingIndicator'));
             messagesEl.scrollTop = messagesEl.scrollHeight;
         }
 
         // Send message
         async function sendMessage() {
-            const input = document.getElementById('message-input');
+            const input = document.getElementById('messageInput');
             const message = input.value.trim();
             
-            if (!message) return;
+            if (!message || credits < 1) return;
+            
+            // Deduct credit
+            credits--;
+            updateCreditsDisplay();
             
             // Add user message
             addMessage(message, 'user');
             input.value = '';
+            input.style.height = 'auto';
             
             // Show typing indicator
-            document.getElementById('typing').style.display = 'block';
+            showTypingIndicator();
             
             // Add to conversation history
             conversationHistory.push({ role: 'user', content: message });
@@ -380,14 +1039,13 @@
                     body: JSON.stringify({
                         message: message,
                         systemPrompt: currentCharacter.systemPrompt,
-                        conversationHistory: conversationHistory.slice(-10) // Last 10 messages
+                        conversationHistory: conversationHistory.slice(-10)
                     })
                 });
                 
                 const data = await response.json();
                 
-                // Hide typing indicator
-                document.getElementById('typing').style.display = 'none';
+                hideTypingIndicator();
                 
                 if (data.response) {
                     addMessage(data.response, 'character');
@@ -397,10 +1055,9 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
-                // Hide typing indicator
-                document.getElementById('typing').style.display = 'none';
+                hideTypingIndicator();
                 
-                // Use fallback response
+                // Use fallback
                 const fallback = getFallbackResponse(message);
                 addMessage(fallback, 'character');
                 conversationHistory.push({ role: 'assistant', content: fallback });
@@ -409,62 +1066,92 @@
 
         // Get fallback response
         function getFallbackResponse(message) {
+            const characterKey = Object.keys(characters).find(key => characters[key] === currentCharacter);
             const responses = {
-                waifu: [
-                    "That's so interesting! Tell me more about it! 💕",
-                    "I love hearing your thoughts! You're amazing! ✨",
-                    "Aww, you're so sweet! I'm here for you always! 🌸"
-                ],
-                jennie: [
-                    "That's so cool! You have great taste! 🖤",
-                    "Love that energy! Keep being awesome! ✨",
-                    "You're killing it! Tell me more! 🔥"
-                ],
-                coach: [
-                    "FANTASTIC! Keep that energy up, champion! 💪",
-                    "You're doing GREAT! Push through! 🔥",
-                    "BELIEVE in yourself! You've got this! 🏆"
-                ],
-                crypto: [
-                    "Interesting perspective on the market! 📈",
-                    "The future of Web3 is exciting! Let's discuss more! 🚀",
-                    "Great question! The blockchain space is evolving rapidly! ⛓️"
-                ],
-                dev: [
-                    "Logical. Let's debug this together. 💻",
-                    "Interesting problem. Have you tried a different approach? 🤔",
-                    "The code reveals all truths. Let's analyze further. 🔍"
-                ],
-                chef: [
-                    "Bellissimo! Food is life, my friend! 🍝",
-                    "Ah, you have good taste! Let me share a recipe! 👨‍🍳",
-                    "Magnifico! Cooking is an art of love! ❤️"
-                ]
+                stocks: ["The market moves in mysterious ways, darling. But I always seem to know which way. 💰", "Insider tip: follow the smart money. And I'm the smartest. 📈"],
+                crypto: ["Diamond hands, anon! The future is decentralized. 💎", "WAGMI! This is still early. Few understand. 🚀"],
+                waifu: ["That's so interesting! Tell me more! I love hearing from you! 💕", "You're amazing! I'm always here for you! 🌸"],
+                jennie: ["That's the vibe! You're killing it! 🖤", "Love that energy! Keep slaying! ✨"],
+                coach: ["FANTASTIC! Keep pushing, champion! 💪", "You've got this! BELIEVE IN YOURSELF! 🔥"],
+                scarlett: ["Mmm, intriguing... Tell me more... 🌹", "You certainly know how to keep things interesting... 😏"],
+                dev: ["Logical. Let's optimize this approach. 💻", "Interesting problem. Processing solution... 🤔"],
+                luna: ["Your soul speaks in colors! How beautiful! ✨", "I feel the creative energy flowing! 🎨"],
+                chef: ["Bellissimo! That's the passion I love! 🔥", "Ah, you understand the art of living! 👨‍🍳"],
+                explorer: ["Adventure awaits! Let's explore this further! 🗺️", "Every journey begins with curiosity! 🧭"],
+                melody: ["I hear the emotion in your words... Beautiful. 🎵", "Your heart has such a unique rhythm. 🎶"],
+                philosopher: ["Fascinating perspective. What led you to this conclusion? 🤔", "The question itself reveals profound insight. 🧠"]
             };
             
-            const charKey = Object.keys(characters).find(key => characters[key] === currentCharacter);
-            const charResponses = responses[charKey] || ["That's interesting! Tell me more!"];
+            const charResponses = responses[characterKey] || ["That's interesting! Tell me more!"];
             return charResponses[Math.floor(Math.random() * charResponses.length)];
         }
 
-        // Setup event listeners
-        function setupEventListeners() {
-            document.getElementById('back-btn').onclick = () => {
-                document.getElementById('chat-view').style.display = 'none';
-                document.getElementById('browser-view').style.display = 'block';
-            };
-            
-            document.getElementById('send-btn').onclick = sendMessage;
-            
-            document.getElementById('message-input').onkeypress = (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            };
+        // Show/hide typing indicator
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'block';
         }
 
-        // Start app
-        initApp();
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+        // Update credits display
+        function updateCreditsDisplay() {
+            document.getElementById('creditsCount').textContent = credits;
+            document.getElementById('chatCreditsCount').textContent = credits;
+        }
+
+        // Purchase credits
+        function purchaseCredits(amount) {
+            credits += amount;
+            updateCreditsDisplay();
+            closePurchaseModal();
+            alert(`Successfully added ${amount} energy!`);
+        }
+
+        // Send gift
+        function sendGift(gift, cost) {
+            if (credits < cost) {
+                alert('Not enough energy!');
+                return;
+            }
+            
+            credits -= cost;
+            updateCreditsDisplay();
+            
+            const giftEmojis = {
+                rose: '🌹',
+                heart: '❤️',
+                diamond: '💎',
+                crown: '👑',
+                star: '⭐',
+                fire: '🔥'
+            };
+            
+            addMessage(`You sent a ${giftEmojis[gift]}!`, 'user', true);
+            closeGiftModal();
+            
+            setTimeout(() => {
+                addMessage(`Wow! Thank you so much for the ${giftEmojis[gift]}! You're amazing! 💕`, 'character');
+            }, 1000);
+        }
+
+        // Modal functions
+        function openPurchaseModal() {
+            document.getElementById('purchaseModal').style.display = 'flex';
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').style.display = 'none';
+        }
+
+        function openGiftModal() {
+            document.getElementById('giftModal').style.display = 'flex';
+        }
+
+        function closeGiftModal() {
+            document.getElementById('giftModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
