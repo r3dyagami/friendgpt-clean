@@ -110,9 +110,30 @@
         }
 
         .character-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
             gap: 12px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .character-grid::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .character-grid::-webkit-scrollbar-track {
+            background: #111;
+            border-radius: 3px;
+        }
+        
+        .character-grid::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        
+        .character-grid::-webkit-scrollbar-thumb:hover {
+            background: #00ff88;
         }
 
         .character-card {
@@ -122,6 +143,8 @@
             padding: 12px;
             cursor: pointer;
             transition: all 0.3s;
+            min-width: 160px;
+            flex: 0 0 auto;
         }
 
         .character-card:hover {
@@ -131,7 +154,7 @@
 
         .character-avatar {
             width: 100%;
-            aspect-ratio: 1;
+            height: 160px;
             border-radius: 8px;
             background-size: cover;
             background-position: center;
@@ -857,13 +880,88 @@
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
+            setupInfiniteScroll();
             setupEventListeners();
             updateCreditsDisplay();
         });
 
-        // Setup event listeners
-        function setupEventListeners() {
-            // Character selection
+        // Setup infinite scroll
+        function setupInfiniteScroll() {
+            // Get all character grids
+            const grids = document.querySelectorAll('.character-grid');
+            
+            grids.forEach(grid => {
+                // Clone all character cards in the grid (except plus-card)
+                const originalCards = Array.from(grid.querySelectorAll('.character-card:not(.plus-card)'));
+                
+                // Create multiple copies for smooth infinite scroll
+                for (let i = 0; i < 3; i++) {
+                    originalCards.forEach(card => {
+                        const clone = card.cloneNode(true);
+                        grid.appendChild(clone);
+                    });
+                }
+                
+                // Set up scroll behavior
+                let isScrolling = false;
+                let scrollVelocity = 0;
+                
+                // Auto-scroll on hover near edges
+                grid.addEventListener('mousemove', (e) => {
+                    const rect = grid.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const width = rect.width;
+                    const edgeSize = 100;
+                    
+                    if (x < edgeSize) {
+                        // Near left edge - scroll left
+                        scrollVelocity = -((edgeSize - x) / edgeSize) * 5;
+                        if (!isScrolling) startAutoScroll(grid);
+                    } else if (x > width - edgeSize) {
+                        // Near right edge - scroll right
+                        scrollVelocity = ((x - (width - edgeSize)) / edgeSize) * 5;
+                        if (!isScrolling) startAutoScroll(grid);
+                    } else {
+                        scrollVelocity = 0;
+                        isScrolling = false;
+                    }
+                });
+                
+                grid.addEventListener('mouseleave', () => {
+                    scrollVelocity = 0;
+                    isScrolling = false;
+                });
+                
+                function startAutoScroll(grid) {
+                    isScrolling = true;
+                    function scroll() {
+                        if (scrollVelocity !== 0) {
+                            grid.scrollLeft += scrollVelocity;
+                            
+                            // Reset scroll position for infinite effect
+                            const maxScroll = grid.scrollWidth - grid.clientWidth;
+                            const halfScroll = maxScroll / 2;
+                            
+                            if (grid.scrollLeft >= halfScroll) {
+                                grid.scrollLeft = grid.scrollLeft - halfScroll;
+                            } else if (grid.scrollLeft <= 0) {
+                                grid.scrollLeft = halfScroll;
+                            }
+                            
+                            requestAnimationFrame(scroll);
+                        } else {
+                            isScrolling = false;
+                        }
+                    }
+                    scroll();
+                }
+                
+                // Start in middle for seamless infinite scroll
+                const maxScroll = grid.scrollWidth - grid.clientWidth;
+                grid.scrollLeft = maxScroll / 4;
+            });
+            
+            // Re-attach click handlers to cloned cards
             document.querySelectorAll('.character-card:not(.plus-card)').forEach(card => {
                 card.addEventListener('click', function() {
                     const characterKey = this.dataset.character;
@@ -872,6 +970,10 @@
                     }
                 });
             });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
 
             // Back button
             document.getElementById('backBtn').addEventListener('click', goBack);
