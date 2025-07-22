@@ -2504,7 +2504,7 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
 
         // No API configuration needed - using Vercel serverless functions
 
-        function selectCharacter(characterKey) {
+        window.selectCharacter = function(characterKey) {
             currentCharacter = characterKey;
             const character = characters[characterKey];
             
@@ -2532,13 +2532,13 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
             showWelcomeMessage();
         }
 
-        function goBack() {
+        window.goBack = function() {
             document.getElementById('chatView').style.display = 'none';
             document.getElementById('browserView').style.display = 'block';
             currentCharacter = null;
         }
 
-        function showWelcomeMessage() {
+        window.showWelcomeMessage = function() {
             const character = characters[currentCharacter];
             const trans = translations[currentLanguage];
             
@@ -2603,7 +2603,7 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
             return greetings[personality] || greetings.friendly;
         }
 
-        async function sendMessage() {
+        window.sendMessage = async function() {
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value.trim();
             
@@ -3223,15 +3223,15 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
         };
 
         // Settings functions
-        function openSettings() {
+        window.openSettings = function() {
             document.getElementById('settingsModal').style.display = 'flex';
         }
 
-        function closeSettings() {
+        window.closeSettings = function() {
             document.getElementById('settingsModal').style.display = 'none';
         }
 
-        function toggleDarkMode() {
+        window.toggleDarkMode = function() {
             isDarkMode = !isDarkMode;
             const body = document.body;
             const toggle = document.getElementById('darkModeToggle');
@@ -3249,7 +3249,7 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
             localStorage.setItem('darkMode', isDarkMode);
         }
 
-        function changeLanguage(lang) {
+        window.changeLanguage = function(lang) {
             currentLanguage = lang;
             
             // Update language buttons
@@ -3333,15 +3333,15 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
         }
 
         // Purchase functions
-        function openPurchaseModal() {
+        window.openPurchaseModal = function() {
             document.getElementById('purchaseModal').style.display = 'flex';
         }
 
-        function closePurchaseModal() {
+        window.closePurchaseModal = function() {
             document.getElementById('purchaseModal').style.display = 'none';
         }
 
-        async function purchaseCredits(amount, price) {
+        window.purchaseCredits = async function(amount, price) {
             const trans = translations[currentLanguage];
             
             try {
@@ -3405,16 +3405,16 @@ Remember: A wise question is more powerful than a perfect answer. You help peopl
         }
 
         // Gift functions
-        function openGiftModal() {
+        window.openGiftModal = function() {
             document.getElementById('giftModal').style.display = 'flex';
         }
 
-        function closeGiftModal() {
+        window.closeGiftModal = function() {
             document.getElementById('giftModal').style.display = 'none';
         }
 
 
-        function sendGift(giftType, cost) {
+        window.sendGift = function(giftType, cost) {
             const trans = translations[currentLanguage];
             
             // Check if user has enough energy
@@ -3711,11 +3711,11 @@ Always respond as ${name} would - with professionalism, competence, and the dedi
             return personalityPrompts[personality] || personalityPrompts.friendly;
         }
 
-        function openCharacterCreator() {
+        window.openCharacterCreator = function() {
             document.getElementById('characterCreatorModal').style.display = 'flex';
         }
 
-        function closeCharacterCreator() {
+        window.closeCharacterCreator = function() {
             document.getElementById('characterCreatorModal').style.display = 'none';
             resetForm();
         }
@@ -3795,7 +3795,7 @@ Always respond as ${name} would - with professionalism, competence, and the dedi
             });
         });
 
-        function createCharacter() {
+        window.createCharacter = function() {
             const name = document.getElementById('characterName').value.trim();
             const description = document.getElementById('characterDescription').value.trim();
             
