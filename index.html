@@ -2014,12 +2014,8 @@
     </div>
 
     <script>
-        // Initialize Simple Chat System
+        // Initialize variables
         let characterChat;
-        if (typeof SimpleCharacterChat !== 'undefined') {
-            characterChat = new SimpleCharacterChat();
-            window.characterChat = characterChat;
-        }
 
         // Character database with system prompts
         const characters = {
@@ -3748,6 +3744,12 @@ Always respond as ${name} would - with professionalism, competence, and the dedi
 
         // Set up event listeners when the page loads
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Simple Chat System
+            if (typeof SimpleCharacterChat !== 'undefined') {
+                characterChat = new SimpleCharacterChat();
+                window.characterChat = characterChat;
+            }
+            
             // Image upload handler
             document.getElementById('characterImage').addEventListener('change', function(event) {
                 const file = event.target.files[0];
