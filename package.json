@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "description": "FriendGPT - AI Character Chat Application",
   "main": "index.html",
-  "type": "module",
   "scripts": {
     "dev": "vercel dev"
   },
   "keywords": ["ai", "chat", "characters", "openai"],
   "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@vercel/node": "^3.0.0"
-  }
+  "license": "MIT"
 }
