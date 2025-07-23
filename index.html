@@ -1319,7 +1319,7 @@
                             
                             if (grid.scrollLeft >= halfScroll) {
                                 grid.scrollLeft = grid.scrollLeft - halfScroll;
-                            } else if (grid.scrollLeft <= 0) {
+                            } else if (grid.scrollLeft < 0) {
                                 grid.scrollLeft = halfScroll;
                             }
                             
@@ -1331,8 +1331,10 @@
                     scroll();
                 }
                 
-                // Start from leftmost position
-                grid.scrollLeft = 0;
+                // Start from leftmost position - delay to ensure proper positioning
+                setTimeout(() => {
+                    grid.scrollLeft = 0;
+                }, 10);
             });
             
             // Re-attach click handlers to cloned cards
