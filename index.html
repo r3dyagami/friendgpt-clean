@@ -229,6 +229,44 @@
             border-radius: 8px;
         }
 
+        .placeholder-card {
+            border: 1px solid #222;
+            background: rgba(40, 40, 40, 0.5);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .placeholder-card:hover {
+            border-color: #444;
+            box-shadow: 0 2px 8px rgba(100, 100, 100, 0.2);
+            transform: scale(1.01);
+        }
+
+        .placeholder-avatar {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 24px;
+            height: 130px;
+            border-radius: 8px;
+        }
+
+        .placeholder-text {
+            color: #777 !important;
+        }
+
+        .coming-soon {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px dashed #555;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 4px;
+        }
+
         /* Chat View */
         #chatView {
             display: none;
@@ -782,6 +820,29 @@
                                 <div class="character-description">💕 Caring companion | 🌸 Always here for you</div>
                             </div>
                         </div>
+
+                        <!-- Placeholder Characters -->
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">?</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Mystery Character</div>
+                                <div class="character-creator placeholder-text">by @unknown</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Something amazing is coming...</div>
+                                <div class="coming-soon">Coming Soon</div>
+                            </div>
+                        </div>
+
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">⭐</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Celebrity AI</div>
+                                <div class="character-creator placeholder-text">by @famous</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">A-list personality coming soon...</div>
+                                <div class="coming-soon">In Development</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -826,6 +887,29 @@
                                 <div class="character-creator">by @code_master</div>
                                 <div class="character-interactions">678.9k interactions</div>
                                 <div class="character-description">💻 Logical code wizard | 🐛 Debug specialist</div>
+                            </div>
+                        </div>
+
+                        <!-- Placeholder Characters -->
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">🎭</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Drama Queen</div>
+                                <div class="character-creator placeholder-text">by @theater</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Dramatic flair meets AI personality...</div>
+                                <div class="coming-soon">Coming Soon</div>
+                            </div>
+                        </div>
+
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">🌟</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Influencer AI</div>
+                                <div class="character-creator placeholder-text">by @viral</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Social media savvy with millions of tips...</div>
+                                <div class="coming-soon">In Development</div>
                             </div>
                         </div>
                     </div>
@@ -884,6 +968,29 @@
                                 <div class="character-description">🧠 Wise philosopher | 🤔 Deep thinker</div>
                             </div>
                         </div>
+
+                        <!-- Placeholder Characters -->
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">🎯</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Trendsetter AI</div>
+                                <div class="character-creator placeholder-text">by @future</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Next big thing in AI personalities...</div>
+                                <div class="coming-soon">Coming Soon</div>
+                            </div>
+                        </div>
+
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">🚀</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Future Bot</div>
+                                <div class="character-creator placeholder-text">by @tomorrow</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Revolutionary AI from the future...</div>
+                                <div class="coming-soon">In Development</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -900,6 +1007,29 @@
                                 <div class="character-creator">by @you</div>
                                 <div class="character-interactions">Click to create</div>
                                 <div class="character-description">Design your own character</div>
+                            </div>
+                        </div>
+
+                        <!-- Placeholder Characters for Your Collection -->
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">👤</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Your Custom AI</div>
+                                <div class="character-creator placeholder-text">by @you</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Create your perfect companion...</div>
+                                <div class="coming-soon">Waiting for You</div>
+                            </div>
+                        </div>
+
+                        <div class="character-card placeholder-card">
+                            <div class="character-avatar placeholder-avatar">💭</div>
+                            <div class="character-info">
+                                <div class="character-name placeholder-text">Dream Character</div>
+                                <div class="character-creator placeholder-text">by @you</div>
+                                <div class="character-interactions placeholder-text">0 interactions</div>
+                                <div class="character-description placeholder-text">Bring your imagination to life...</div>
+                                <div class="coming-soon">Your Canvas</div>
                             </div>
                         </div>
                     </div>
@@ -1201,9 +1331,8 @@
                     scroll();
                 }
                 
-                // Start in middle for seamless infinite scroll
-                const maxScroll = grid.scrollWidth - grid.clientWidth;
-                grid.scrollLeft = maxScroll / 4;
+                // Start from leftmost position
+                grid.scrollLeft = 0;
             });
             
             // Re-attach click handlers to cloned cards
